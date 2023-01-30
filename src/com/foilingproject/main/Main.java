@@ -2,21 +2,31 @@ package com.foilingproject.main;
 
 import java.util.Scanner;
 
+import static com.foilingproject.main.complexFoiling.complexFoiling.complexFoiling;
+
 public class Main {
 
     public static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-        //gets first set of numbers
-        System.out.println("Print out what you want your first set to be like, Print it out like (a,b)");
+        //Asks for the first set of numbers
+        System.out.println("Print out what you want your first set to be like, Print it out like (a,b) or (ax2,b)");
         String input1 = scanner.nextLine().strip();
-        //gets second set of numbers
-        System.out.println("Print out what you want your first set to be like, Print it out like (a,b)");
+        //Asks for the second set of numbers
+        System.out.println("Print out what you want your first set to be like, Print it out like (a,b) or (ax2,b)");
         String input2 = scanner.nextLine().strip();
-        System.out.println(foil(input1, input2));
+        if (input1.contains("x") || input2.contains("x")) {
+            System.out.println(complexFoiling(input1,input2));
+        } else {
+            //Checks if there was no error with the equation,  If there is it returns null and tells the user there was an error
+            if (foil(input1,input2) != null) {
+                foil(input1,input2);
+            }
+        }
     }
 
-    public static float foil(String input1, String input2) {
+    //Function used for standard foiling, Complex foiling is in its own class
+    public static Float foil(String input1, String input2) {
         float finalNum;
         float num1=0;
         float num2=0;
@@ -24,14 +34,7 @@ public class Main {
         float num4=0;
         //Check input before filtering
         try {
-            //filter input to be used in math
-                        //Filters 1st set of numbers
-            if (input1.contains("x")) {
-                //this will be hell so I'll do it later
-                System.out.println("variables are not yet supported");
-                return 0;
-            }
-
+            //Filters 1st set of number
             for (int i = 0; i < input1.length(); i++) {
                 if (input1.charAt(i) == ',') {
                     num1 = Float.parseFloat(input1.substring(1, i));
@@ -50,9 +53,10 @@ public class Main {
             return finalNum;
         } catch (Exception e) {
             //If input is incorrect it is caught here
-            System.out.println("The input you gave was incorrect!");
+            System.out.println("The input you gave was incorrect!  Please try again.");
+            System.out.println("The error was:\n" + e);
         }
         //returns 0 if the input is incorrect since I cant return null
-        return 0;
+        return null;
     }
 }
