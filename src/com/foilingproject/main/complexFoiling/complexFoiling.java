@@ -43,7 +43,8 @@ public class complexFoiling {
             if (stringNum1.contains("x")) {
                 if (stringNum1.charAt(i) == 'x') {
                     //Checks if there is an exponent after the var
-                    num1 = Integer.parseInt(stringNum1.substring(1,i-1));
+                    System.out.println(stringNum1);
+                    num1 = Integer.parseInt(stringNum1.substring(0,i));
                     if (stringNum1.charAt(stringNum1.length()-1) == 'x') {
                         num1Exp = 1;
                     } else {
@@ -60,7 +61,7 @@ public class complexFoiling {
             if (stringNum2.contains("x")) {
                 if (stringNum2.charAt(i) == 'x') {
                     //Checks if there is an exponent after the var
-                    num2 = Integer.parseInt(stringNum2.substring(1,i-1));
+                    num2 = Integer.parseInt(stringNum2.substring(0,i));
                     if (stringNum2.charAt(stringNum2.length()-1) == 'x') {
                         num2Exp = 1;
                     } else {
@@ -76,7 +77,7 @@ public class complexFoiling {
             if (stringNum3.contains("x")) {
                 if (stringNum3.charAt(i) == 'x') {
                     //Checks if there is an exponent after the var
-                    num3 = Integer.parseInt(stringNum3.substring(1,i-1));
+                    num3 = Integer.parseInt(stringNum3.substring(0,i));
                     if (stringNum3.charAt(stringNum3.length()-1) == 'x') {
                         num3Exp = 1;
                     } else {
@@ -92,7 +93,7 @@ public class complexFoiling {
             if (stringNum4.contains("x")) {
                 if (stringNum4.charAt(i) == 'x') {
                     //Checks if there is an exponent after the var
-                    num4 = Integer.parseInt(stringNum4.substring(1,i-1));
+                    num4 = Integer.parseInt(stringNum4.substring(0,i));
                     if (stringNum4.charAt(stringNum4.length()-1) == 'x') {
                         num4Exp = 1;
                     } else {
@@ -106,13 +107,13 @@ public class complexFoiling {
         }
         //Here is the math for the foiling
         //This makes me want to die inside
+        int foiledNum1 = num1 * num3;
+        int foiledNum2 = num1 * num4;
+        int foiledNum3 = num2 * num3;
+        int foiledNum4 = num2 * num4;
 
 
 
-        System.out.println(num1Exp);
-        System.out.println(num2Exp);
-        System.out.println(num3Exp);
-        System.out.println(num4Exp);
         return finalValue;
     }
 }
