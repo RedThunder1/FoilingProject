@@ -6,7 +6,7 @@ import static com.foilingproject.main.complexFoiling.complexFoiling.complexFoili
 
 public class Main {
 
-    public static Scanner scanner = new Scanner(System.in);
+    public static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         //Asks for the first set of numbers
@@ -20,7 +20,7 @@ public class Main {
         } else {
             //Checks if there was no error with the equation,  If there is it returns null and tells the user there was an error
             if (foil(input1,input2) != null) {
-                foil(input1,input2);
+                System.out.println(foil(input1,input2));
             }
         }
     }

@@ -2,9 +2,10 @@ package com.foilingproject.main.complexFoiling;
 
 public class complexFoiling {
 
+
     //Foiling function used for complex foiling
     public static String complexFoiling(String input1, String input2) {
-        String finalValue = "test";
+        String finalValue = "";
 
         //variables for storing the input
         String stringNum1 = "";
@@ -43,15 +44,17 @@ public class complexFoiling {
             if (stringNum1.contains("x")) {
                 if (stringNum1.charAt(i) == 'x') {
                     //Checks if there is an exponent after the var
-                    System.out.println(stringNum1);
                     num1 = Integer.parseInt(stringNum1.substring(0,i));
                     if (stringNum1.charAt(stringNum1.length()-1) == 'x') {
+                        //sets the exponent to 1 if the number has a var but no exponent put after it
                         num1Exp = 1;
                     } else {
+                        //sets the exponent after the var
                         num1Exp = Integer.parseInt(stringNum1.substring(i+1));
                     }
                 }
             } else {
+                //If there is no exponent it stays as zero
                 num1 = Integer.parseInt(stringNum1);
                 break;
             }
@@ -60,7 +63,6 @@ public class complexFoiling {
         for (int i = 0; i < stringNum2.length(); i++) {
             if (stringNum2.contains("x")) {
                 if (stringNum2.charAt(i) == 'x') {
-                    //Checks if there is an exponent after the var
                     num2 = Integer.parseInt(stringNum2.substring(0,i));
                     if (stringNum2.charAt(stringNum2.length()-1) == 'x') {
                         num2Exp = 1;
@@ -76,7 +78,6 @@ public class complexFoiling {
         for (int i = 0; i < stringNum3.length(); i++) {
             if (stringNum3.contains("x")) {
                 if (stringNum3.charAt(i) == 'x') {
-                    //Checks if there is an exponent after the var
                     num3 = Integer.parseInt(stringNum3.substring(0,i));
                     if (stringNum3.charAt(stringNum3.length()-1) == 'x') {
                         num3Exp = 1;
@@ -92,7 +93,6 @@ public class complexFoiling {
         for (int i = 0; i < stringNum4.length(); i++) {
             if (stringNum4.contains("x")) {
                 if (stringNum4.charAt(i) == 'x') {
-                    //Checks if there is an exponent after the var
                     num4 = Integer.parseInt(stringNum4.substring(0,i));
                     if (stringNum4.charAt(stringNum4.length()-1) == 'x') {
                         num4Exp = 1;
@@ -105,15 +105,63 @@ public class complexFoiling {
                 break;
             }
         }
-        //Here is the math for the foiling
-        //This makes me want to die inside
+        //Here is the math for the foiling (This makes me want to die inside)
+        //THIS CODE IS NOT FINAL.  This code can definitely be better and cleaned up a bit but ill do that once it works (and if I have the motivation too).
         int foiledNum1 = num1 * num3;
         int foiledNum2 = num1 * num4;
         int foiledNum3 = num2 * num3;
         int foiledNum4 = num2 * num4;
+        int foiledNum1Exp = num1Exp + num3Exp;
+        int foiledNum2Exp = num1Exp + num4Exp;
+        int foiledNum3Exp = num2Exp + num3Exp;
+        int foiledNum4Exp = num2Exp + num4Exp;
+        int[] exponents = new int[]{foiledNum1Exp, foiledNum2Exp, foiledNum3Exp, foiledNum4Exp};
+        int[] newExp;
+
+        //Checks for the largest number and puts that number first
+        int largest = largest(exponents);
+        if (largest == foiledNum1Exp) {
+            finalValue = finalValue + foiledNum1 + "x" + foiledNum1Exp + " + ";
+            newExp = new int[]{foiledNum2Exp, foiledNum3Exp, foiledNum4Exp};
+        } else if (largest == foiledNum2Exp){
+            finalValue = finalValue + foiledNum2 + "x" + foiledNum2Exp + " + ";
+            newExp = new int[]{foiledNum1Exp, foiledNum3Exp, foiledNum4Exp};
+        } else if (largest == foiledNum3Exp) {
+            finalValue = finalValue + foiledNum3 + "x" + foiledNum3Exp + " + ";
+            newExp = new int[]{foiledNum1Exp, foiledNum2Exp, foiledNum4Exp};
+        } else {
+            finalValue = finalValue + foiledNum4 + "x" + foiledNum4Exp + " + ";
+            newExp = new int[]{foiledNum1Exp, foiledNum2Exp, foiledNum3Exp};
+        }
+
+        //Checks for the second-largest number
+        int secondLargest = largest(newExp);
+        if (secondLargest == foiledNum1Exp) {
+            finalValue = finalValue + foiledNum1 + "x" + foiledNum1Exp + " + ";
+        } else if (secondLargest == foiledNum2Exp){
+            finalValue = finalValue + foiledNum2 + "x" + foiledNum2Exp + " + ";
+        } else if (secondLargest == foiledNum3Exp) {
+            finalValue = finalValue + foiledNum3 + "x" + foiledNum3Exp + " + ";
+        } else {
+            finalValue = finalValue + foiledNum4 + "x" + foiledNum4Exp + " + ";
+        }
 
 
 
         return finalValue;
+    }
+
+
+    //Function to get the largest number out of an array since .max() only supports 2 values
+    private static int largest(int[] array)
+    {
+        int i;
+        int max = array[0];
+        for (i = 1; i < array.length; i++) {
+            if (array[i] > max) {
+                max = array[i];
+            }
+        }
+        return max;
     }
 }
