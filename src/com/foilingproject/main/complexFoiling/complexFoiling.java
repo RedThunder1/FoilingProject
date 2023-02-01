@@ -1,5 +1,8 @@
 package com.foilingproject.main.complexFoiling;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class complexFoiling {
 
 
@@ -115,36 +118,15 @@ public class complexFoiling {
         int foiledNum2Exp = num1Exp + num4Exp;
         int foiledNum3Exp = num2Exp + num3Exp;
         int foiledNum4Exp = num2Exp + num4Exp;
-        int[] exponents = new int[]{foiledNum1Exp, foiledNum2Exp, foiledNum3Exp, foiledNum4Exp};
-        int[] newExp;
+        ArrayList<Integer> exponents = new ArrayList<>();
+        exponents.add(foiledNum1Exp);
+        exponents.add(foiledNum2Exp);
+        exponents.add(foiledNum3Exp);
+        exponents.add(foiledNum4Exp);
 
         //Checks for the largest number and puts that number first
-        int largest = largest(exponents);
-        if (largest == foiledNum1Exp) {
-            finalValue = finalValue + foiledNum1 + "x" + foiledNum1Exp + " + ";
-            newExp = new int[]{foiledNum2Exp, foiledNum3Exp, foiledNum4Exp};
-        } else if (largest == foiledNum2Exp){
-            finalValue = finalValue + foiledNum2 + "x" + foiledNum2Exp + " + ";
-            newExp = new int[]{foiledNum1Exp, foiledNum3Exp, foiledNum4Exp};
-        } else if (largest == foiledNum3Exp) {
-            finalValue = finalValue + foiledNum3 + "x" + foiledNum3Exp + " + ";
-            newExp = new int[]{foiledNum1Exp, foiledNum2Exp, foiledNum4Exp};
-        } else {
-            finalValue = finalValue + foiledNum4 + "x" + foiledNum4Exp + " + ";
-            newExp = new int[]{foiledNum1Exp, foiledNum2Exp, foiledNum3Exp};
-        }
+        //I plan on making this code a bit shorter in for loops, but I just want to get it working rn
 
-        //Checks for the second-largest number
-        int secondLargest = largest(newExp);
-        if (secondLargest == foiledNum1Exp) {
-            finalValue = finalValue + foiledNum1 + "x" + foiledNum1Exp + " + ";
-        } else if (secondLargest == foiledNum2Exp){
-            finalValue = finalValue + foiledNum2 + "x" + foiledNum2Exp + " + ";
-        } else if (secondLargest == foiledNum3Exp) {
-            finalValue = finalValue + foiledNum3 + "x" + foiledNum3Exp + " + ";
-        } else {
-            finalValue = finalValue + foiledNum4 + "x" + foiledNum4Exp + " + ";
-        }
 
 
 
@@ -153,15 +135,25 @@ public class complexFoiling {
 
 
     //Function to get the largest number out of an array since .max() only supports 2 values
-    private static int largest(int[] array)
+    private static int largest(ArrayList<Integer> array)
     {
         int i;
-        int max = array[0];
-        for (i = 1; i < array.length; i++) {
-            if (array[i] > max) {
-                max = array[i];
+        int max = array.get(0);
+        for (i = 1; i < array.size(); i++) {
+            if (array.get(i) > max) {
+                max = array.get(i);
             }
         }
         return max;
+    }
+    //Function to remove exponetns form list
+    private static ArrayList<Integer> removeInt(ArrayList<Integer> list, int num) {
+
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).equals(num)) {
+                list.remove(i);
+            }
+        }
+        return list;
     }
 }
