@@ -2,7 +2,7 @@ package com.foilingproject.main;
 
 import java.util.Scanner;
 
-import static com.foilingproject.main.complexfoiling.complexFoiling.complexFoiling;
+import static com.foilingproject.main.complexfoiling.ComplexFoiling.complexFoiling;
 
 public class Main {
 
