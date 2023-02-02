@@ -146,7 +146,7 @@ public class complexFoiling {
         }
         return max;
     }
-    //Function to remove exponetns form list
+    //Function to remove exponents form list
     private static ArrayList<Integer> removeInt(ArrayList<Integer> list, int num) {
 
         for (int i = 0; i < list.size(); i++) {

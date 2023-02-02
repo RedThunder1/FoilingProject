@@ -1,7 +1,6 @@
 package com.foilingproject.main;
 
 import java.util.Scanner;
-import java.util.StringJoiner;
 
 import static com.foilingproject.main.complexFoiling.complexFoiling.complexFoiling;
 
