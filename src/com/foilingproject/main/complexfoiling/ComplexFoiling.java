@@ -1,9 +1,8 @@
-package com.foilingproject.main.complexFoiling;
+package com.foilingproject.main.complexfoiling;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-public class complexFoiling {
+public class ComplexFoiling {
 
 
     //Foiling function used for complex foiling
@@ -110,22 +109,99 @@ public class complexFoiling {
         }
         //Here is the math for the foiling (This makes me want to die inside)
         //THIS CODE IS NOT FINAL.  This code can definitely be better and cleaned up a bit but ill do that once it works (and if I have the motivation too).
-        int foiledNum1 = num1 * num3;
-        int foiledNum2 = num1 * num4;
-        int foiledNum3 = num2 * num3;
-        int foiledNum4 = num2 * num4;
-        int foiledNum1Exp = num1Exp + num3Exp;
-        int foiledNum2Exp = num1Exp + num4Exp;
-        int foiledNum3Exp = num2Exp + num3Exp;
-        int foiledNum4Exp = num2Exp + num4Exp;
-        ArrayList<Integer> exponents = new ArrayList<>();
-        exponents.add(foiledNum1Exp);
-        exponents.add(foiledNum2Exp);
-        exponents.add(foiledNum3Exp);
-        exponents.add(foiledNum4Exp);
+        int[] foiledNum1 = {num1 * num3, num1Exp + num3Exp};
+        int[] foiledNum2 = {num1 * num4, num1Exp + num4Exp};
+        int[] foiledNum3 = {num2 * num3, num2Exp + num3Exp};
+        int[] foiledNum4 = {num2 * num4, num2Exp + num4Exp};
+        ArrayList<Integer> exponents = new ArrayList<>(Arrays.asList(foiledNum1[1], foiledNum2[1], foiledNum3[1], foiledNum4[1]));
 
-        //Checks for the largest number and puts that number first
-        //I plan on making this code a bit shorter in for loops, but I just want to get it working rn
+        //Setting it to a set will remove duplicates, so we can check the size of the set to determine if there were similar values and go from there
+        Set<Integer> finalizedExp = new HashSet<>(exponents);
+        System.out.println(finalizedExp.size());
+
+        switch (finalizedExp.size()) {
+            case 4 -> {
+                //If there are no similar values this code runs
+                int firstNum = largest(exponents);
+                if (firstNum == foiledNum1[1]) {
+                    exponents.remove(findInt(exponents, foiledNum1[1]));
+                    finalValue = foiledNum1[0] + "x" + firstNum;
+                } else if (firstNum == foiledNum2[1]) {
+                    exponents.remove(findInt(exponents, foiledNum2[1]));
+                    finalValue = foiledNum2[0] + "x" + firstNum;
+                } else if (firstNum == foiledNum3[1]) {
+                    exponents.remove(findInt(exponents, foiledNum3[1]));
+                    finalValue = foiledNum3[0] + "x" + firstNum;
+
+                } else {
+                    exponents.remove(findInt(exponents, foiledNum4[1]));
+                    finalValue = foiledNum4[0] + "x" + firstNum;
+                }
+
+                //Checks for 2nd largest number and adds it to the final value
+                int secondNum = largest(exponents);
+                if (secondNum == foiledNum1[1]) {
+                    exponents.remove(findInt(exponents, foiledNum1[1]));
+                    finalValue = finalValue + " " + foiledNum1[0] + "x" + secondNum;
+                } else if (secondNum == foiledNum2[1]) {
+                    exponents.remove(findInt(exponents, foiledNum2[1]));
+                    finalValue = finalValue + " " + foiledNum2[0] + "x" + secondNum;
+                } else if (secondNum == foiledNum3[1]) {
+                    exponents.remove(findInt(exponents, foiledNum3[1]));
+                    finalValue = finalValue + " " + foiledNum3[0] + "x" + secondNum;
+
+                } else {
+                    exponents.remove(findInt(exponents, foiledNum4[1]));
+                    finalValue = finalValue + " " + foiledNum4[0] + "x" + firstNum;
+                }
+
+                //Checks for 3rd largest number and adds it to the final value
+                int thirdNum = largest(exponents);
+                if (thirdNum == foiledNum1[1]) {
+                    exponents.remove(findInt(exponents, foiledNum1[0]));
+                    finalValue = finalValue + " " + foiledNum1[0] + "x" + thirdNum;
+                } else if (thirdNum == foiledNum2[1]) {
+                    exponents.remove(findInt(exponents, foiledNum2[1]));
+                    finalValue = finalValue + " " + foiledNum2[0] + "x" + thirdNum;
+                } else if (thirdNum == foiledNum3[1]) {
+                    exponents.remove(findInt(exponents, foiledNum3[1]));
+                    finalValue = finalValue + " " + foiledNum3[0] + "x" + thirdNum;
+
+                } else {
+                    exponents.remove(findInt(exponents, foiledNum4[1]));
+                    finalValue = finalValue + " " + foiledNum4[0] + "x" + firstNum;
+                }
+
+                //Gets last value
+                //Here we have to check to see if it has an exponent since its possible for this number to not have one
+
+
+
+            }
+            case 3 -> {
+                //If there were 2 similar values this runs
+
+
+
+            }
+            case 2 -> {
+                //If there was 3 similar values this runs
+
+
+
+
+            }
+            case 1 -> {
+                //If all the values were similar this runs
+
+
+
+
+            }
+            default -> {
+                return "There was an error with the function! Please try again";
+            }
+        }
 
 
 
@@ -133,27 +209,31 @@ public class complexFoiling {
         return finalValue;
     }
 
+    public static String getComplexFoiling(String input1, String input2) {
+        return complexFoiling(input1, input2);
+    }
+
 
     //Function to get the largest number out of an array since .max() only supports 2 values
     private static int largest(ArrayList<Integer> array)
     {
-        int i;
         int max = array.get(0);
-        for (i = 1; i < array.size(); i++) {
+        for (int i = 1; i < array.size(); i++) {
             if (array.get(i) > max) {
                 max = array.get(i);
             }
         }
         return max;
     }
-    //Function to remove exponents form list
-    private static ArrayList<Integer> removeInt(ArrayList<Integer> list, int num) {
+
+    //Function to remove exponents from list
+    private static Integer findInt(ArrayList<Integer> list, int num) {
 
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).equals(num)) {
-                list.remove(i);
+                return i;
             }
         }
-        return list;
+        return null;
     }
 }
