@@ -1,10 +1,8 @@
 package com.foilingproject.main;
 
+import com.foilingproject.main.complexfoiling.ComplexFoiling;
+
 import java.util.Scanner;
-import java.util.StringJoiner;
-
-import static com.foilingproject.main.complexFoiling.complexFoiling.complexFoiling;
-
 public class Main {
 
     public static final Scanner scanner = new Scanner(System.in);
@@ -16,10 +14,10 @@ public class Main {
         //Asks for the second set of numbers
         System.out.println("Print out what you want your first set to be like, Print it out like (a,b) or (ax2,b)");
         String input2 = scanner.nextLine();
-        String in = input1.strip();
-        String in2 = input2.strip();
+        String in = input1.strip().replaceAll(" ", "");
+        String in2 = input2.strip().replaceAll(" ", "");;
         if (in.contains("x") || in2.contains("x")) {
-            System.out.println(complexFoiling(in,in2));
+            System.out.println(ComplexFoiling.getComplexFoiling(in,in2));
         } else {
             //Checks if there was no error with the equation,  If there is it returns null and tells the user there was an error
             if (foil(in,in2) != null) {
