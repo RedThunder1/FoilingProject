@@ -154,11 +154,10 @@ public class ComplexFoiling {
         int[] foiledNum2 = {num1 * num4, num1Exp + num4Exp, 2};
         int[] foiledNum3 = {num2 * num3, num2Exp + num3Exp, 3};
         int[] foiledNum4 = {num2 * num4, num2Exp + num4Exp, 4};
-        //These will likely be used on checks for foiling with similar values
         ArrayList<int[]> numbers = new ArrayList<>(Arrays.asList(foiledNum1, foiledNum2, foiledNum3, foiledNum4));
         ArrayList<Integer> exponents = new ArrayList<>(Arrays.asList(foiledNum1[1], foiledNum2[1], foiledNum3[1], foiledNum4[1]));
 
-        //Setting it to a set will remove duplicates, so we can check the size of the set to determine if there were similar values and go from there
+        //Making it a set will remove duplicates, so we can easily check the size of the set to determine if there were similar values and go from there
         Set<Integer> finalizedExp = new HashSet<>(exponents);
         System.out.println(finalizedExp.size());
 
@@ -244,7 +243,93 @@ public class ComplexFoiling {
                 }
             }
             case 3 -> {
-                return "unsupported right now!";
+
+                int[][] similarVals = new int[][]{};
+                int[] diffLargest;
+                int[] diffSmallest;
+
+                //Checks for which values are the same and then which of the 2 different values are bigger than the other
+                if (foiledNum1[1] == foiledNum2[1]) {
+                    similarVals = new int[][]{foiledNum1, foiledNum2};
+                    if (foiledNum3[1] > foiledNum4[1]) {
+                        diffLargest = foiledNum3;
+                        diffSmallest = foiledNum4;
+                    } else {
+                        diffLargest = foiledNum4;
+                        diffSmallest = foiledNum3;
+                    }
+                } else if (foiledNum1[1] == foiledNum3[1]) {
+                    similarVals = new int[][]{foiledNum1, foiledNum3};
+                    if (foiledNum2[1] > foiledNum4[1]) {
+                        diffLargest = foiledNum2;
+                        diffSmallest = foiledNum4;
+                    } else {
+                        diffLargest = foiledNum4;
+                        diffSmallest = foiledNum2;
+                    }
+                } else if (foiledNum1[1] == foiledNum4[1]) {
+                    similarVals = new int[][]{foiledNum1, foiledNum4};
+                    if (foiledNum2[1] > foiledNum3[1]) {
+                        diffLargest = foiledNum2;
+                        diffSmallest = foiledNum3;
+                    } else {
+                        diffLargest = foiledNum3;
+                        diffSmallest = foiledNum2;
+                    }
+                } else if (foiledNum2[1] == foiledNum3[1]) {
+                    similarVals = new int[][]{foiledNum2, foiledNum3};
+                    if (foiledNum1[1] > foiledNum4[1]) {
+                        diffLargest = foiledNum1;
+                        diffSmallest = foiledNum4;
+                    } else {
+                        diffLargest = foiledNum4;
+                        diffSmallest = foiledNum1;
+                    }
+                } else if (foiledNum2[1] == foiledNum4[1]) {
+                    similarVals = new int[][]{foiledNum2, foiledNum4};
+                    if (foiledNum1[1] > foiledNum3[1]) {
+                        diffLargest = foiledNum1;
+                        diffSmallest = foiledNum3;
+                    } else {
+                        diffLargest = foiledNum3;
+                        diffSmallest = foiledNum1;
+                    }
+                } else if (foiledNum3[1] == foiledNum4[1]) {
+                    similarVals = new int[][]{foiledNum3, foiledNum4};
+                    if (foiledNum1[1] > foiledNum2[1]) {
+                        diffLargest = foiledNum1;
+                        diffSmallest = foiledNum2;
+                    } else {
+                        diffLargest = foiledNum2;
+                        diffSmallest = foiledNum1;
+                    }
+                } else {
+                    return "There was an error with the function please try again! (checking similar values)";
+                }
+
+                if (similarVals[0][1] > diffLargest[1]) {
+                    finalValue = (similarVals[0][0] + similarVals[1][0]) + "x" + similarVals[0][1] + " + " + diffLargest[0] + "x" + diffLargest[1];
+                    if (diffSmallest[1] == 0) {
+                        finalValue = finalValue + " + " + diffSmallest[0];
+                    } else {
+                        finalValue = finalValue + " + " + diffSmallest[0] + "x" + diffSmallest[1];
+                    }
+                } else if (similarVals[0][1] > diffSmallest[1]) {
+                    finalValue = diffLargest[0] + "x" + diffLargest[1] + " + " + (similarVals[0][0] + similarVals[1][0]) + "x" + similarVals[0][1];
+                    if (diffSmallest[1] == 0) {
+                        finalValue = finalValue + " + " + diffSmallest[0];
+                    } else {
+                        finalValue = finalValue + " + " + diffSmallest[0] + "x" + diffSmallest[1];
+                    }
+                } else {
+                    finalValue = diffLargest[0] + "x" + diffLargest[1] + " + " + diffSmallest[0] + "x" + diffSmallest[1];
+                    if (similarVals[0][1] == 0) {
+                        finalValue = finalValue + " " + similarVals[0];
+                    } else {
+                        finalValue = finalValue + " " + similarVals[0] + "x" + similarVals[1];
+                    }
+
+                }
             }
             case 2 -> {
                 //stores the arrays of the values that are similar
@@ -304,6 +389,7 @@ public class ComplexFoiling {
 
                 }
 
+                //I need to make it so it checks if the last value has an exponent
                 if (similarVal1[0][1] > similarVal2[0][1]) {
                     return (similarVal1[0][0] + similarVal1[1][0]) + "x + " + (similarVal2[0][0] + similarVal2[1][0]);
                 } else return (similarVal2[0][0] + similarVal2[1][0]) + "x + " + (similarVal1[0][0] + similarVal1[1][0]);
@@ -314,7 +400,7 @@ public class ComplexFoiling {
                 return (foiledNum1[0] + foiledNum2[0] + foiledNum3[0] + foiledNum4[0]) + "x" + foiledNum1[1];
             }
             default -> {
-                return "There was an error with the function! Please try again";
+                return "There was an error with the function! Please try again (error with set size)";
             }
         }
 
