@@ -15,8 +15,8 @@ public class Main {
         //Asks for the second set of numbers
         System.out.println("Print out what you want your first set to be like, Print it out like (a,b) or (ax2,b)");
         String input2 = scanner.nextLine();
-        String in = input1.strip();
-        String in2 = input2.strip();
+        String in = input1.replaceAll(" ", "");
+        String in2 = input2.replaceAll(" ", "");
         if (in.contains("x") || in2.contains("x")) {
             System.out.println(complexFoiling(in,in2));
         } else {
